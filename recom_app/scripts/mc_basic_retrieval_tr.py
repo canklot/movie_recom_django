@@ -23,7 +23,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import tensorflow_recommenders as tfrs
 
-def runall():
+def runall(yeni_girdi_list):
     
   """## Verisetini hazırlama
 
@@ -73,7 +73,7 @@ def runall():
   # Modeli test edebilmek için veri setine sadece bilim kurgu veya romantik film izlemiş bir kullanıcı ekliyoruz
   # Bilim kurgu filmleri
 
-  yeni_girdi1= {
+  """   yeni_girdi1= {
       "movie_title": "Twelve Monkeys (1995)",
       "user_id": "12345678", 
   }
@@ -92,7 +92,7 @@ def runall():
   yeni_girdi5 = {
       "movie_title": "Men in Black (1997)",
       "user_id": "12345678", 
-  } 
+  }  """
 
   # Romantik filimler
   """ yeni_girdi1= {
@@ -117,7 +117,7 @@ def runall():
       "user_id": "12345678",
   }
   """
-  yeni_girdi_list = [yeni_girdi1,yeni_girdi2,yeni_girdi3,yeni_girdi4,yeni_girdi5]
+  #yeni_girdi_list = [yeni_girdi1,yeni_girdi2,yeni_girdi3,yeni_girdi4,yeni_girdi5]
   yeni_girdi_ds_list = []
 
   # Yeni eklediğimiz verileri tf.Dataset objesine dönüştürüyoruz
