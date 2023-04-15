@@ -1,12 +1,15 @@
 from django import forms
-
+import os
 
 class TextForm(forms.Form):
-    CHOICES = [('qr_code', 'Qr Code'),
-               ('Code128', 'Barcode Code128'),
-               ('Gs1_128', 'Barcode Gs1_128'),
-               ('CODABAR', 'Barcode CODABAR')]
+    current_path = os.getcwd()
+    with open("C:/Users/Canavar/Desktop/film-oneri-django/recom_project/recom_app/filmler_tekil.txt", encoding="utf8") as f:
+        lines = f.readlines()
 
-    barcode_type_selection = forms.ChoiceField(
+    CHOICES= []
+    for film in lines:
+        CHOICES.append((film,film))
+
+    film_selector = forms.ChoiceField(
         choices=CHOICES, 
-        widget=forms.Select(attrs={'id': 'qr_type_input_id','class': 'barcode_type_css'}))
+        widget=forms.Select(attrs={'id': 'film_selector','class': 'film_selector'}))
