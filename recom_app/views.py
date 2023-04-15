@@ -6,7 +6,7 @@ import tensorflow as tf
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("Hello, world. Look at urls py and views for other links.")
 
 def run(request):
 
@@ -22,9 +22,13 @@ def run(request):
         {"movie_title": "Men in Black (1997)",
          "user_id": "12345678"} 
     ]
+    
     oneriler=runall(yeni_girdi_list)
     oneriler_string=""
     for x in range(10):
         #print(oneriler[0,x])
-        oneriler_string += tf.compat.as_str_any(oneriler[0,x]+"<br>")
+        oneriler_string += oneriler[0,x].numpy().decode("utf-8") +"<br>"
     return HttpResponse(oneriler_string)
+    
+    return render(request, 'recom_app/home.html')
+

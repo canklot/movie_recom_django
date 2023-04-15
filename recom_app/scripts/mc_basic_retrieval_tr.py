@@ -23,6 +23,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import tensorflow_recommenders as tfrs
 
+
 def runall(yeni_girdi_list):
     
   """## Verisetini hazırlama
@@ -145,6 +146,12 @@ def runall(yeni_girdi_list):
   filim_isimleri_tekil = np.unique(np.concatenate(list(filim_isimleri)))
   kullanıcı_idleri_tekil = np.unique(np.concatenate(list(kullanıcı_idleri)))
 
+  """   with open("filim_isimleri_tekil.txt", "w",encoding='utf-8') as file1:
+    for element in filim_isimleri_tekil:
+        
+        file1.write(element) """
+ 
+
   # Listemizi ekrana basıp bir kontrol edelim
   print(filim_isimleri_tekil[:10])
   kullanıcı_idleri_tekil[:10]
@@ -161,14 +168,14 @@ def runall(yeni_girdi_list):
   user_model = tf.keras.Sequential([
       tf.keras.layers.StringLookup(vocabulary=kullanıcı_idleri_tekil, mask_token=None),
       # Bilinmeyen tokenler için +1 node ekliyoruz
-      tf.keras.layers.Embedding(len(kullanıcı_idleri_tekil) + 1, 32)
+      tf.keras.layers.Embedding(len(kullanıcı_idleri_tekil) + 1,64)
   ])
 
   # Kullanıcılar için oluşturduğumuz modelin aynısını filmler için de oluşturuyoruz.
   movie_model = tf.keras.Sequential([
     tf.keras.layers.StringLookup(
         vocabulary=filim_isimleri_tekil, mask_token=None),
-    tf.keras.layers.Embedding(len(filim_isimleri_tekil) + 1, 32)
+    tf.keras.layers.Embedding(len(filim_isimleri_tekil) + 1, 64)
   ])
 
   # Modelimizin performansını ölçmek için tüm filmleri modelimize sokuyoruz
@@ -199,23 +206,26 @@ def runall(yeni_girdi_list):
       positive_movie_embeddings = self.movie_model(features["movie_title"])
       return self.task(user_embeddings, positive_movie_embeddings)
 
+  
+
   """## Eğitim"""
 
   # Model sınıfımızdan bir obje oluşturuyoruz ve compile ediyoruz
   model = FilmOneriModeli(user_model, movie_model)
+  
   model.compile(optimizer=tf.keras.optimizers.Adagrad(learning_rate=0.1))
-
+  
   # Son olarak veri setimizi karıştırıp gruplayıp önbelleğe alıyoruz.
   cached_train = train.shuffle(100_000).batch(8192).cache()
   cached_test = test.batch(4096).cache()
 
   # Modeli eğitiyoruz
-  model.fit(cached_train, epochs=3)
+  model.fit(cached_train, epochs=1) # test ederken beklememek icin 1 yaptım beni 3 falkan yap
 
   # Modelin daha önce hiç görmediği veriler ile test ediyoruz
   # İlk 50 öneri içinde başarı oranı yüzde 10
   model.evaluate(cached_test, return_dict=True)
-
+ 
   """## Tahmin yaptırma
 
   Eğitilen modelden öneri istemek için `tfrs.layers.factorized_top_k.BruteForce` layerını kullanıyoruz.
@@ -231,15 +241,17 @@ def runall(yeni_girdi_list):
   print(f"Recommendations for user:")
   for x in range(10):
     print(oneriler[0,x])
-  
+
   return oneriler
 
-  """
-  ## Kaydetme
+
+  
+  """ ## Kaydetme
 
   # Modelimizi daha sonra tekrar kullanabilmek için kaydediyoruz
-  with tempfile.TemporaryDirectory() as tmp:
-    path = os.path.join(tmp, "model")
+  
+  with open("mymodel", "w") as file1:
+    path = os.path.join(os.getcwdb(), "file1")
     tf.saved_model.save(index, path)
 
     # Modeli dosyadan okumak için saved_model.load kullanıyoruz
@@ -250,4 +262,19 @@ def runall(yeni_girdi_list):
 
     print(f"Recommendations for user:")
     for x in range(9):
-      print(oneriler[0,x]) """
+      print(oneriler[0,x])
+ """
+if __name__ == "__main__":
+  yeni_girdi_list = [
+        {"movie_title": "Twelve Monkeys (1995)",
+         "user_id": "12345678"},
+        {"movie_title": "Terminator 2: Judgment Day (1991)",
+         "user_id": "12345678"},
+        {"movie_title": "Alien 3 (1992)",
+         "user_id": "12345678"},
+        {"movie_title": "Jurassic Park (1993)",
+         "user_id": "12345678"},
+        {"movie_title": "Men in Black (1997)",
+         "user_id": "12345678"} 
+    ]
+  runall(yeni_girdi_list)
