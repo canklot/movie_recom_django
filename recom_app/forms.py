@@ -3,7 +3,7 @@ import os
 
 class TextForm(forms.Form):
     current_path = os.getcwd()
-    with open("C:/Users/Canavar/Desktop/film-oneri-django/recom_project/recom_app/filmler_tekil.txt", encoding="utf8") as f:
+    with open(current_path+"/recom_app/filmler_tekil.txt", encoding="utf8") as f:
         lines = f.readlines()
 
     CHOICES= []
