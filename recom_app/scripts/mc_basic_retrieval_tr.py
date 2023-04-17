@@ -220,7 +220,7 @@ def runall(yeni_girdi_list):
   cached_test = test.batch(4096).cache()
 
   # Modeli eğitiyoruz
-  model.fit(cached_train, epochs=1) # test ederken beklememek icin 1 yaptım beni 3 falkan yap
+  model.fit(cached_train, epochs=3) # test ederken beklememek icin 1 yaptım beni 3 falkan yap
 
   # Modelin daha önce hiç görmediği veriler ile test ediyoruz
   # İlk 50 öneri içinde başarı oranı yüzde 10

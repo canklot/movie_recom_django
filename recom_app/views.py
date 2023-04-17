@@ -3,6 +3,7 @@ from .scripts.mc_basic_retrieval_tr import runall
 from django.http import HttpResponse
 import tensorflow as tf
 from .forms import TextForm
+import json
 
 def index(request):
     return HttpResponse("Hello, world. Look at urls py and views for other links.")
@@ -22,6 +23,7 @@ def run(request):
          "user_id": "12345678"} 
     ] """
     filmList = request.GET.get('filmList', '')
+    filmList = json.loads(filmList)
     yeni_girdi_list = []
 
     for film in filmList:
