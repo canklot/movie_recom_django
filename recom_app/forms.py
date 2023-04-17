@@ -2,9 +2,11 @@ from django import forms
 import os
 
 class TextForm(forms.Form):
+    lines = []
     current_path = os.getcwd()
     with open(current_path+"/recom_app/filmler_tekil.txt", encoding="utf8") as f:
-        lines = f.readlines()
+        for line in f:
+            lines.append(line.strip()) 
 
     CHOICES= []
     for film in lines:

@@ -46,13 +46,13 @@ def runall(yeni_girdi_list):
   arka planda ikinci parçayı asenkron olarak getiren ve daha verimli öğrenmeyi sağlayan bir sınıftır
   """
 
-  for x in gecmis.take(1).as_numpy_iterator():
+  """ for x in gecmis.take(1).as_numpy_iterator():
     pprint.pprint("Ratings veri setinin örnek bir elemenı:")
-    pprint.pprint(x)
+    pprint.pprint(x) """
 
-  for x in filimler.take(1).as_numpy_iterator():
+  """ for x in filimler.take(1).as_numpy_iterator():
     pprint.pprint("Movies veri setinin örnek bir elemenı:")
-    pprint.pprint(x)
+    pprint.pprint(x) """
 
   """Netflix de oylama sistemi bulunmadığından bu projede sadece izleme geçmişini kullanarak öneride bulunacağız.
   Bu yüzden veri setimizde sadece film ismi ve kullanıcı id kalacak şekilde atama yapıyoruz.
@@ -65,9 +65,9 @@ def runall(yeni_girdi_list):
   })
   filimler = filimler.map(lambda x: x["movie_title"])
 
-  for x in gecmis.take(1).as_numpy_iterator():
+  """ for x in gecmis.take(1).as_numpy_iterator():
     pprint.pprint("Ratings veri setinin gereksiz kısımları sildikten sonraki bir elemenı:")
-    pprint.pprint(x)
+    pprint.pprint(x) """
 
   """### Veri setine kendi kullanıcımızı ekleme"""
 
@@ -153,8 +153,8 @@ def runall(yeni_girdi_list):
  
 
   # Listemizi ekrana basıp bir kontrol edelim
-  print(filim_isimleri_tekil[:10])
-  kullanıcı_idleri_tekil[:10]
+  """ print(filim_isimleri_tekil[:10])
+  kullanıcı_idleri_tekil[:10] """
 
   """## Model tasarımı"""
 

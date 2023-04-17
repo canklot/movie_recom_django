@@ -9,7 +9,7 @@ def index(request):
 
 def run(request):
 
-    yeni_girdi_list = [
+    """ yeni_girdi_list = [
         {"movie_title": "Twelve Monkeys (1995)",
          "user_id": "12345678"},
         {"movie_title": "Terminator 2: Judgment Day (1991)",
@@ -20,15 +20,29 @@ def run(request):
          "user_id": "12345678"},
         {"movie_title": "Men in Black (1997)",
          "user_id": "12345678"} 
-    ]
-    
-    """ oneriler=runall(yeni_girdi_list)
+    ] """
+    filmList = request.GET.get('filmList', '')
+    yeni_girdi_list = []
+
+    for film in filmList:
+        yeni_girdi_list.append(
+            {"movie_title": film,"user_id": "12345678"})
+
+
+    oneriler=runall(yeni_girdi_list)
     oneriler_string=""
     for x in range(10):
         #print(oneriler[0,x])
         oneriler_string += oneriler[0,x].numpy().decode("utf-8") +"<br>"
-    return HttpResponse(oneriler_string) """
+    return HttpResponse(oneriler_string)
+    
+
+def filmler(request):
     if request.method != 'POST':
         form = TextForm()
         return render(request, 'recom_app/home.html', {'form': form})
 
+def printLikes(request):
+    filmList = request.GET.get('filmList', '')
+    print(filmList)
+    return HttpResponse(filmList)
