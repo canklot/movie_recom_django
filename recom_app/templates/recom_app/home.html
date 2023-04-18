@@ -3,9 +3,9 @@
   <label for="cars">Choose a car:</label>
 
   {{ form.film_selector }}
-
+  <h4>Liked films:</h4>
+  <pre id="liked_list"></pre>
   <br /><br />
-  <input type="submit" value="Submit" />
 </form>
 <button onclick="addFilmToList()">Add to list</button>
 <button onclick="oneriAl()" id="oneriAlButton">Oneri al</button>
@@ -13,14 +13,21 @@
 <script>
   var filmList = [];
   function addFilmToList() {
-    var e = document.getElementById("film_selector");
-    var value = e.value;
-    filmList.push(value);
+    var film_selector = document.getElementById("film_selector");
+    var film = film_selector.value;
+    filmList.push(film);
     filmList.forEach(console.log);
+
+    addFilmToHtml(film);
   }
 
   function oneriAl() {
     var jsonFilmler = encodeURIComponent(JSON.stringify(filmList));
     window.open("/run?filmList=" + jsonFilmler, "_self");
+  }
+
+  function addFilmToHtml(film) {
+    var paragraph = document.getElementById("liked_list");
+    paragraph.textContent += film + "\n";
   }
 </script>
