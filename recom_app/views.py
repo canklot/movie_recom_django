@@ -45,9 +45,8 @@ def onerial(request):
     
 
 def filmler(request):
-    if request.method != 'POST':
-        form = TextForm()
-        return render(request, 'recom_app/home.html', {'form': form})
+    form = TextForm()
+    return render(request, 'recom_app/home.html', {'form': form})
 
 def printLikes(request):
     filmList = request.GET.get('filmList', '')

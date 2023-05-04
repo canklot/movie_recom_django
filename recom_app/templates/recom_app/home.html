@@ -1,16 +1,19 @@
-<form method="post">
+<div>
   {% csrf_token %}
   <label>Select a film:</label>
+  <cont>
+    {{ form.film_selector }}
+    <button onclick="addFilmToList()">Add to list</button>
+  </cont>
 
-  {{ form.film_selector }}
-
-  <h4>Liked films:</h4>
-  <pre id="liked_list"></pre>
-  <br /><br />
-</form>
-
-<button onclick="addFilmToList()">Add to list</button>
-<button onclick="oneriAl()" id="oneriAlButton">Oneri al</button>
+  <box>
+    <div>
+      <label>Liked_films:</label>
+      <pre id="liked_list"></pre>
+    </div>
+    <button onclick="oneriAl()" id="oneriAlButton">Oneri al</button>
+  </box>
+</div>
 
 <script>
   var filmList = [];
@@ -33,3 +36,60 @@
     paragraph.textContent += film + "\n";
   }
 </script>
+
+<style>
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+  }
+  cont {
+    display: inline-block;
+  }
+  box {
+    display: inline-block;
+  }
+
+  label {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  select {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  pre {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    max-height: 100px;
+    overflow-y: auto;
+  }
+
+  button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background-color: #0069d9;
+  }
+</style>
