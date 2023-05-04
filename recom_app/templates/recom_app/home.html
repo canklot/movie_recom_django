@@ -1,12 +1,14 @@
 <form method="post">
   {% csrf_token %}
-  <label for="cars">Choose a car:</label>
+  <label>Select a film:</label>
 
   {{ form.film_selector }}
+
   <h4>Liked films:</h4>
   <pre id="liked_list"></pre>
   <br /><br />
 </form>
+
 <button onclick="addFilmToList()">Add to list</button>
 <button onclick="oneriAl()" id="oneriAlButton">Oneri al</button>
 
@@ -23,7 +25,7 @@
 
   function oneriAl() {
     var jsonFilmler = encodeURIComponent(JSON.stringify(filmList));
-    window.open("/run?filmList=" + jsonFilmler, "_self");
+    window.open("/onerial?filmList=" + jsonFilmler, "_self");
   }
 
   function addFilmToHtml(film) {

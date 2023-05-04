@@ -168,14 +168,14 @@ def runall(yeni_girdi_list):
   user_model = tf.keras.Sequential([
       tf.keras.layers.StringLookup(vocabulary=kullanıcı_idleri_tekil, mask_token=None),
       # Bilinmeyen tokenler için +1 node ekliyoruz
-      tf.keras.layers.Embedding(len(kullanıcı_idleri_tekil) + 1,64)
+      tf.keras.layers.Embedding(len(kullanıcı_idleri_tekil) + 1,32)
   ])
 
   # Kullanıcılar için oluşturduğumuz modelin aynısını filmler için de oluşturuyoruz.
   movie_model = tf.keras.Sequential([
     tf.keras.layers.StringLookup(
         vocabulary=filim_isimleri_tekil, mask_token=None),
-    tf.keras.layers.Embedding(len(filim_isimleri_tekil) + 1, 64)
+    tf.keras.layers.Embedding(len(filim_isimleri_tekil) + 1,32)
   ])
 
   # Modelimizin performansını ölçmek için tüm filmleri modelimize sokuyoruz
