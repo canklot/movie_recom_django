@@ -4,7 +4,7 @@ from django.http import HttpResponse
 import tensorflow as tf
 from .forms import TextForm
 from rest_framework.decorators import api_view
-
+from .scripts.cover import get_cover
 import json
 
 def index(request):
@@ -37,11 +37,12 @@ def onerial(request):
 
 
     oneriler=runall(yeni_girdi_list)
-    oneriler_string=""
+    oneriler_decoded=[]
     for x in range(10):
         #print(oneriler[0,x])
-        oneriler_string += oneriler[0,x].numpy().decode("utf-8") +"<br>"
-    return HttpResponse(oneriler_string)
+        oneriler_decoded.append(oneriler[0,x].numpy().decode("utf-8") )
+    return results(request,oneriler_decoded)
+    return HttpResponse(oneriler_decoded)
     
 
 def filmler(request):
@@ -52,3 +53,10 @@ def printLikes(request):
     filmList = request.GET.get('filmList', '')
     print(filmList)
     return HttpResponse(filmList)
+
+def results(request,films):
+    for film in films:
+        get_cover(film)
+    #films = ["lorem1","The Dark Knight"]
+    films = [film+".jpg" for film in films ]
+    return render(request, 'recom_app/results.html', {'films': films})

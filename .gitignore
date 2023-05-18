@@ -1,4 +1,6 @@
 # Created by https://www.gitignore.io
+
+recom_app/static/*.jpg
 virtenv/
 ### OSX ###
 .DS_Store

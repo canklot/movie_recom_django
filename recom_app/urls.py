@@ -6,5 +6,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("onerial", views.onerial, name="onerial"),
     path("filmler", views.filmler, name="filmler"),
+    path("results", views.results, name="results"),
     path("printLikes", views.printLikes, name="printLikes"),
 ]
