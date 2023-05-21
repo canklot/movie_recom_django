@@ -55,8 +55,14 @@ def printLikes(request):
     return HttpResponse(filmList)
 
 def results(request,films):
+    print("Downloading images. This can take some time")
     for film in films:
         get_cover(film)
     #films = ["lorem1","The Dark Knight"]
+    films = [film+".jpg" for film in films ]
+    return render(request, 'recom_app/results.html', {'films': films})
+
+def results_mock(request):
+    films =['Sphere (1998)', 'Titanic (1997)', 'Anastasia (1997)', 'Blues Brothers 2000 (1998)', 'For Richer or Poorer (1997)', 'Spice World (1997)', 'Good Will Hunting (1997)', 'Half Baked (1998)', 'Fallen (1998)', 'Dark City (1998)']
     films = [film+".jpg" for film in films ]
     return render(request, 'recom_app/results.html', {'films': films})

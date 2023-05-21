@@ -6,11 +6,18 @@
 
 <body>
 
+
+  <h1
+    class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white flex items-center justify-center p-8">
+    The recommendations
+  </h1>
+
+
   <div class="flex flex-row">
     {% for film in films %}
-    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-8">
+    <div class="w-60 border-gray-200 rounded-lg shadow p-8">
       <a href="#">
-        <img class="rounded-t-lg" src="{% static film %}" alt="" />
+        <img class="rounded-t-lg w-full h-auto" src="{% static film %}" alt="" />
         <p>{{film}}</p>
       </a>
     </div>
